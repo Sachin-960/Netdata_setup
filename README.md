@@ -1,104 +1,110 @@
-# 📊 Netdata Setup and Load Testing
-This repository provides scripts to automate the installation, configuration, load testing, and uninstallation of [Netdata](https://www.netdata.cloud/), a real-time performance monitoring tool
+# 📊 Netdata Setup & Load Testing
 
-## 📁 Repository Contents
-
-- **`Install.sh`** Automates the installation and configuration of Netdat.
-- **`Load Generating Script.sh`** Simulates system load to test Netdata's monitoring capabilitie.
-- **`Uninstall Netdata.sh`** Removes Netdata and its associated configurations from the syste.
+A complete solution to **install, configure, test, and uninstall** Netdata — a real-time performance monitoring tool for Linux systems.
 
 ---
 
-## 🛠️ Prerequisites
-- A Unix-based operating system (e.g., Ubuntu, Debia).- User with `sudo` privilegs.- Internet connectivity for package installatios.
+## 📂 Project Structure
+
+| File                         | Description                                           |
+|-----------------------------|-------------------------------------------------------|
+| Install.sh                  | Automates Netdata installation and setup             |
+| Load Generating Script.sh   | Generates artificial system load for testing         |
+| Uninstall Netdata.sh        | Completely uninstalls Netdata and cleans leftovers   |
 
 ---
 
-## 🚀 Installation and Configuration
+## 🔧 Requirements
 
-### 1. Clone the Repositoy
+- Linux-based system (Ubuntu/Debian recommended)
+- Sudo privileges
+- Internet connection
 
-
-```bash
+---
+
+## 🚀 How to Use
+
+### Step 1: Clone the Repository
+
+Run this in your terminal:
+```
 git clone https://github.com/Sachin-960/Netdata_setup.git
 cd Netdata_setup
-``
-
+```
 
-### 2. Run the Installation Scrit
+### Step 2: Install Netdata
 
-
-```bash
+Make the script executable and run it:
+```
 chmod +x Install.sh
 ./Install.sh
-``
-
+```
 
-This script performs the following actins:
-
-- **Updates Package Lists*: Ensures the system has the latest package informaton.
-- **Installs Netdata*: Uses the package manager to install Netdta.
-- **Configures Netdata*: Modifies the Netdata configuration to allow external access by changing the `bind to` address to `0.0.00`.
-- **Restarts and Enables Netdata*: Applies the new configuration and ensures Netdata starts on bot.
-- **Displays Access Information*: Provides the URL to access the Netdata dashbord.
+This script:
+- Installs Netdata using `apt`
+- Configures Netdata to listen on the public IP
+- Enables and starts the Netdata service
+- Displays the dashboard access URL
 
 ---
 
-## 📈 Load Testing Netdta
+## 🌐 Access Netdata Dashboard
 
-To simulate system load and observe Netdata's monitoring capabiliies
+After successful installation, open the following URL in your browser:
 
-
-```bash
+**http://<your-ec2-public-ip>:19999**
+
+Replace `<your-ec2-public-ip>` with your actual EC2 or system public IP.
+
+---
+
+## 🔁 Generate Load (Optional)
+
+To test how Netdata monitors system performance in real time, run the load-generating script:
+
+```
 chmod +x "Load Generating Script.sh"
-./Load\ Generating\ Script.sh```
+./Load\ Generating\ Script.sh
+```
 
-This script genertes:
-
-- **CPU Loa**: Runs a continuous loop to consume CPU resouces.
-- **Memory Loa**: Allocates a significant amount of memory using random ata.
-- **Disk I/O Loa**: Writes data to disk to simulate disk uage.
-- **Network Loa**: Sends continuous ping requests to generate network trafic
-
-The load runs for 60 seconds, after which the script cleans up all background processes and temporary fles.
+This will:
+- Use CPU via infinite loops
+- Allocate memory temporarily
+- Perform disk I/O operations
+- Send continuous pings to localhost
 
 ---
 
-## 🧹 Uninstallaion
+## 🧹 Uninstall Netdata
 
-To remove Netdata and its configuraion:
-
-
-```bash
+If you want to remove Netdata and clean up everything, run:
+```
 chmod +x "Uninstall Netdata.sh"
-./Uninstall\ Netdata.s
-``
-
+./Uninstall\ Netdata.sh
+```
 
-This script performs the follwing:
-
-- **Stops Netdata Servie**: Halts the running Netdata sevice.
-- **Removes Netdata Packags**: Uninstalls Netdata using the package maager.
-- **Deletes Configuration Fils**: Removes Netdata's configuration and log iles.
-- **Disables Netdata Servie**: Prevents Netdata from starting onboot.
+This will:
+- Stop the Netdata service
+- Uninstall the package
+- Remove all config and log files
+- Disable it from auto-starting
 
 ---
 
-## 🌐 Accessing Netdata Dashoard
+## 🔒 Security Note
 
-After installation, access the Netdata dashboard using your server's pubic P:
-
-
-```bash
-http://<your-server-ip>:1999
-``
-
-
-Replace `<your-server-ip>` with your actual server IP adress.
+If you're using Netdata on a public-facing server:
+- Restrict port `19999` in your firewall or security group
+- Use a reverse proxy like Nginx with authentication
+- Avoid exposing the dashboard to the open internet
 
 ---
 
-## 🔒 Security Considerations
+## ✅ Summary
 
-- **Firewall Configuraion**: Ensure that port `19999` is open if you wish to access Netdata rmotely.
-- **Access Conrol**: Consider setting up reverse proxy with authentication or VPN to restrict access to the Netdata dahboard.
+- Fast and easy Netdata installation
+- Simulated load testing for visual monitoring
+- One-click uninstall script
+- Fully automated with zero manual steps
+
+This is a part of [Roadmap.sh](https://roadmap.sh/projects/simple-monitoring-dashboard) Devops Projects.
